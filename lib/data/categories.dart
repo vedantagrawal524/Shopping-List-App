@@ -16,7 +16,7 @@ const categories = {
   ),
   Categories.dairy: Category(
     'Dairy',
-    Color.fromARGB(255, 0, 208, 255),
+    Color.fromARGB(255, 249, 243, 243),
   ),
   Categories.carbs: Category(
     'Carbs',
