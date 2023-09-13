@@ -16,6 +16,7 @@ class GroceryList extends StatefulWidget {
 class _GroceryListState extends State<GroceryList> {
   List<GroceryItem> _groceryItem = [];
   var _isLoading = true;
+  String? _error;
 
   @override
   void initState() {
@@ -27,6 +28,12 @@ class _GroceryListState extends State<GroceryList> {
     final url = Uri.https('shopping-list-4bf35-default-rtdb.firebaseio.com',
         'shopping-list.json');
     final response = await http.get(url);
+    if (response.statusCode >= 400) {
+      setState(() {
+        _error = 'Failed to fetch data! Please try again later.';
+      });
+    }
+
     final Map<String, dynamic> listData = json.decode(response.body);
     final List<GroceryItem> loadedItems = [];
     for (final item in listData.entries) {
@@ -65,10 +72,25 @@ class _GroceryListState extends State<GroceryList> {
     });
   }
 
-  void _removeItem(GroceryItem item) {
+  void _removeItem(GroceryItem item) async {
+    final index = _groceryItem.indexOf(item);
     setState(() {
       _groceryItem.remove(item);
     });
+    final url = Uri.https('shopping-list-4bf35-default-rtdb.firebaseio.com',
+        'shopping-list/${item.id}.json');
+    final response = await http.delete(url);
+    if (response.statusCode >= 400) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Unable to Delete Item!'),
+        ),
+      );
+      setState(() {
+        _groceryItem.insert(index, item);
+      });
+    }
   }
 
   @override
@@ -102,6 +124,9 @@ class _GroceryListState extends State<GroceryList> {
           ),
         ),
       );
+    }
+    if (_error != null) {
+      content = Center(child: Text(_error!));
     }
     return Scaffold(
       appBar: AppBar(
