@@ -1,16 +1,6 @@
-# shopping_list
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Shopping List Application
+- Helps users create, organize, and manage shopping lists.
+- It allows users to add, edit, and delete items, categorize them, and mark them as purchased.
+- It simplifies the shopping experience by ensuring users never forget essential items.
+## Preview
+![ShopBy_1](https://github.com/user-attachments/assets/1b8d6a84-e23d-4e72-b640-2d9fc7063eba)
